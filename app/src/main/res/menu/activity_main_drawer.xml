@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_translater"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Translater" />
+        <item
+            android:id="@+id/nav_cro_words"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Croation words" />
+        <item
+            android:id="@+id/nav_slo_words"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Slovenian words" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_sign_out"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Sign out" />
+        </menu>
+    </item>
+
+</menu>
