@@ -12,89 +12,58 @@ import javax.annotation.Generated;
 @Generated("org.jsonschema2pojo")
 public class TranslateData {
 
-    @SerializedName("id")
+    @SerializedName("langFrom")
     @Expose
-    private String id;
-    @SerializedName("name")
+    private String langFrom;
+    @SerializedName("langTo")
     @Expose
-    private String name;
-    @SerializedName("description")
+    private String langTo;
+    @SerializedName("word")
     @Expose
-    private String description;
-    @SerializedName("background")
+    private String word;
+    @SerializedName("translation")
     @Expose
-    private String background;
+    private String translation;
 
-    /**
-     *
-     * @return
-     * The id
-     */
-    public String getId() {
-        return id;
+    public TranslateData() {
     }
 
-    /**
-     *
-     * @param id
-     * The id
-     */
-    public void setId(String id) {
-        this.id = id;
+    public TranslateData(String langFrom, String langTo, String word, String translation) {
+        this.langFrom = langFrom;
+        this.langTo = langTo;
+        this.word = word;
+        this.translation = translation;
     }
 
-    /**
-     *
-     * @return
-     * The name
-     */
-    public String getName() {
-        return name;
+    public String getLangFrom() {
+        return langFrom;
     }
 
-    /**
-     *
-     * @param name
-     * The name
-     */
-    public void setName(String name) {
-        this.name = name;
+    public void setLangFrom(String langFrom) {
+        this.langFrom = langFrom;
     }
 
-    /**
-     *
-     * @return
-     * The description
-     */
-    public String getDescription() {
-        return description;
+    public String getLangTo() {
+        return langTo;
     }
 
-    /**
-     *
-     * @param description
-     * The description
-     */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLangTo(String langTo) {
+        this.langTo = langTo;
     }
 
-    /**
-     *
-     * @return
-     * The background
-     */
-    public String getBackground() {
-        return background;
+    public String getWord() {
+        return word;
     }
 
-    /**
-     *
-     * @param background
-     * The background
-     */
-    public void setBackground(String background) {
-        this.background = background;
+    public void setWord(String word) {
+        this.word = word;
     }
 
+    public String getTranslation() {
+        return translation;
+    }
+
+    public void setTranslation(String translation) {
+        this.translation = translation;
+    }
 }

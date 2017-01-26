@@ -21,6 +21,7 @@ import javax.inject.Inject;
 
 import hr.translater.data.AppComponent;
 import hr.translater.data.DaggerAppComponent;
+import hr.translater.fragments.AddTranslateFragment;
 import hr.translater.fragments.CroWordsFragment;
 import hr.translater.fragments.SloWordsFragment;
 import hr.translater.networking.Service;
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_translater) {
-            // Handle the camera action
+            fragmentTransaction.replace(R.id.flContainer, new AddTranslateFragment(service),"addTranslateFragment");
         } else if (id == R.id.nav_cro_words) {
             fragmentTransaction.replace(R.id.flContainer, new CroWordsFragment(service),"croWordsFragment");
         } else if (id == R.id.nav_slo_words) {

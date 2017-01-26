@@ -14,9 +14,7 @@ import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
 public class TranslateResponse {
-    @SerializedName("data")
-    @Expose
-    private List<TranslateData> data = new ArrayList<TranslateData>();
+
     @SerializedName("message")
     @Expose
     private String message;
@@ -24,23 +22,6 @@ public class TranslateResponse {
     @Expose
     private int status;
 
-    /**
-     *
-     * @return
-     * The data
-     */
-    public List<TranslateData> getData() {
-        return data;
-    }
-
-    /**
-     *
-     * @param data
-     * The data
-     */
-    public void setData(List<TranslateData> data) {
-        this.data = data;
-    }
 
     /**
      *

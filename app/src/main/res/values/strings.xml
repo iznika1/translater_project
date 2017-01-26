@@ -5,4 +5,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="translate_lang_array">
+        <item>Croatian</item>
+        <item>Slovenian</item>
+    </string-array>
+
 </resources>

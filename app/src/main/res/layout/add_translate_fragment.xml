@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center"
+        android:gravity="top|center"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tv_lang_from"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="Language from: "
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/lang_from_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
+            android:dropDownWidth="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_lang_to"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Language to:"
+            android:textSize="20sp"
+            />
+
+        <Spinner
+            android:id="@+id/lang_to_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.16" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Word:"
+            android:textSize="20sp"
+            />
+
+        <EditText
+            android:id="@+id/et_word"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Translation:"
+            android:textSize="20sp"
+            />
+
+        <EditText
+            android:id="@+id/et_translation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            />
+
+        <View
+            android:layout_marginTop="30sp"
+            android:layout_width="fill_parent"
+            android:layout_height="4dip"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            />
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progresss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>

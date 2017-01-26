@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,16 +26,13 @@ import hr.translater.networking.Service;
  * Created by Igor on 25.1.2017..
  */
 
-public class BaseWordFragment extends Fragment implements WordsView, SwipeRefreshLayout.OnRefreshListener {
+public class BaseWordFragment extends Fragment implements WordsView {
 
     @BindView(R.id.list)
     RecyclerView recyclerView;
 
     @BindView(R.id.progress)
     ProgressBar progressBar;
-
-    @BindView(R.id.swipeRefreshLayout)
-    protected SwipeRefreshLayout swipeContainer;
 
     protected Activity activity;
 
@@ -86,32 +81,14 @@ public class BaseWordFragment extends Fragment implements WordsView, SwipeRefres
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        swipeContainer.setOnRefreshListener(this);
-        swipeContainer.setRefreshing(false);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_words,container,false);
-        ButterKnife.bind(this,root);
+        View root = inflater.inflate(R.layout.words_fragment, container, false);
+        ButterKnife.bind(this, root);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
         return root;
-    }
-
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                swipeContainer.setRefreshing(false);
-            }
-        }, 2000);
     }
 }

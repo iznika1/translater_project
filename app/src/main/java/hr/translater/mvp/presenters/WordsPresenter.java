@@ -1,9 +1,14 @@
 package hr.translater.mvp.presenters;
 
+import hr.translater.mvp.models.TranslateData;
+import hr.translater.mvp.models.TranslateResponse;
+import hr.translater.mvp.views.AddView;
+import hr.translater.mvp.views.BaseView;
 import hr.translater.mvp.views.WordsView;
 import hr.translater.mvp.models.WordResponse;
 import hr.translater.networking.Service;
 import hr.translater.networking.TranslatorError;
+import okhttp3.ResponseBody;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -14,14 +19,15 @@ import rx.subscriptions.CompositeSubscription;
 public class WordsPresenter {
 
     private final Service service;
-    private final WordsView view;
+    private final BaseView view;
     private CompositeSubscription subscriptions;
 
-    public WordsPresenter(Service service, WordsView view) {
+    public WordsPresenter(Service service, BaseView view) {
         this.service = service;
         this.view = view;
         this.subscriptions = new CompositeSubscription();
     }
+
     public void getCroWordsList() {
         view.showWait();
 
@@ -29,7 +35,7 @@ public class WordsPresenter {
             @Override
             public void onSuccess(WordResponse wordsResponse) {
                 view.removeWait();
-                view.getWordsListSuccess(wordsResponse);
+                ((WordsView)view).getWordsListSuccess(wordsResponse);
             }
 
             @Override
@@ -51,7 +57,7 @@ public class WordsPresenter {
             @Override
             public void onSuccess(WordResponse wordsResponse) {
                 view.removeWait();
-                view.getWordsListSuccess(wordsResponse);
+                ((WordsView) view).getWordsListSuccess(wordsResponse);
             }
 
             @Override
@@ -62,6 +68,26 @@ public class WordsPresenter {
 
         });
 
+        subscriptions.add(subscription);
+    }
+
+    public void addTranslation(TranslateData translateData) {
+        view.showWait();
+
+        Subscription subscription = service.addTranslation(translateData,new Service.PostCallback() {
+            @Override
+            public void onSuccess(ResponseBody translateResponse) {
+                view.removeWait();
+                ((AddView)view).addTranslateSuccess(translateResponse);
+            }
+
+            @Override
+            public void onError(TranslatorError translatorError) {
+                view.removeWait();
+                view.onFailure(translatorError.getAppErrorMessage());
+            }
+
+        });
 
         subscriptions.add(subscription);
     }

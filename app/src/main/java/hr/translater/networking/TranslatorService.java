@@ -1,7 +1,11 @@
 package hr.translater.networking;
 
+import hr.translater.mvp.models.TranslateData;
 import hr.translater.mvp.models.WordResponse;
+import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import rx.Observable;
 
 /**
@@ -15,4 +19,7 @@ public interface TranslatorService {
 
     @GET("words/slovenian")
     Observable<WordResponse> getSlovenianWordsList();
+
+    @POST("/translate")
+    Observable<ResponseBody> postTranslation(@Body TranslateData translateData);
 }
