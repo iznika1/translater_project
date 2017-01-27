@@ -12,6 +12,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.translater.R;
+import hr.translater.mvp.models.TranslateResponse;
 import hr.translater.mvp.models.Word;
 
 /**

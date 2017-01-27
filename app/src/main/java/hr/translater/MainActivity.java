@@ -2,6 +2,8 @@ package hr.translater;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -42,15 +44,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -67,6 +60,7 @@ public class MainActivity extends AppCompatActivity
 
 
         getFragmentManager().beginTransaction().add(R.id.flContainer, new CroWordsFragment(service), "croWordsFragment").commit();
+        addInMemory(true);
     }
 
     @Override
@@ -93,10 +87,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -112,10 +102,15 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_translater) {
             fragmentTransaction.replace(R.id.flContainer, new AddTranslateFragment(service),"addTranslateFragment");
+            fragmentTransaction.addToBackStack("addTranslateFragment");
         } else if (id == R.id.nav_cro_words) {
             fragmentTransaction.replace(R.id.flContainer, new CroWordsFragment(service),"croWordsFragment");
+            fragmentTransaction.addToBackStack("croWordsFragment");
+            addInMemory(true);
         } else if (id == R.id.nav_slo_words) {
             fragmentTransaction.replace(R.id.flContainer, new SloWordsFragment(service),"sloWordsFragment");
+            fragmentTransaction.addToBackStack("sloWordsFragment");
+            addInMemory(false);
         } else if (id == R.id.nav_sign_out) {
 
         }
@@ -129,5 +124,12 @@ public class MainActivity extends AppCompatActivity
 
     public AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    void addInMemory(boolean isCroFragmentActive){
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("croFragmentActive",isCroFragmentActive);
+        editor.commit();
     }
 }

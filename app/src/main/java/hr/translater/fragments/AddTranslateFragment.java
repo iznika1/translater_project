@@ -3,6 +3,7 @@ package hr.translater.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,7 +21,6 @@ import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import hr.translater.R;
 import hr.translater.mvp.models.TranslateData;
-import hr.translater.mvp.models.TranslateResponse;
 import hr.translater.mvp.presenters.WordsPresenter;
 import hr.translater.mvp.views.AddView;
 import hr.translater.networking.Service;
@@ -70,12 +70,6 @@ public class AddTranslateFragment extends Fragment implements AddView {
         View root = inflater.inflate(R.layout.add_translate_fragment,container,false);
         ButterKnife.bind(this,root);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity.getApplicationContext(),
-                R.array.translate_lang_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        langFromSpinner.setAdapter(adapter);
-        langToSpinner.setAdapter(adapter);
-
         removeWait();
 
         return root;
@@ -95,6 +89,11 @@ public class AddTranslateFragment extends Fragment implements AddView {
     public void onFailure(String appErrorMessage) {
         Toast.makeText(activity.getApplicationContext(), appErrorMessage,
                 Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loadDetailFragment() {
+
     }
 
     @Override

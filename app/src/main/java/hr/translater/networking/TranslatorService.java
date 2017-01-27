@@ -1,11 +1,15 @@
 package hr.translater.networking;
 
 import hr.translater.mvp.models.TranslateData;
+import hr.translater.mvp.models.TranslateResponse;
 import hr.translater.mvp.models.WordResponse;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -14,11 +18,15 @@ import rx.Observable;
 
 public interface TranslatorService {
 
-    @GET("words/croatian")
-    Observable<WordResponse> getCroatianWordsList();
+    @GET("words/{lang}")
+    Observable<WordResponse> getWordsListForLang(@Path("lang") String lang);
 
-    @GET("words/slovenian")
-    Observable<WordResponse> getSlovenianWordsList();
+    @Headers({
+            "Content-Type: application/json;charset=utf-8",
+            "Accept: application/json"
+    })
+    @GET("translate/{langFrom}/to/{langTo}")
+    Observable<TranslateResponse> getTranslate(@Path("langFrom") String langFrom, @Path("langTo") String langTo, @Query(value = "word", encoded = true) String word);
 
     @POST("/translate")
     Observable<ResponseBody> postTranslation(@Body TranslateData translateData);

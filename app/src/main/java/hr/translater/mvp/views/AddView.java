@@ -1,6 +1,5 @@
 package hr.translater.mvp.views;
 
-import hr.translater.mvp.models.TranslateResponse;
 import okhttp3.ResponseBody;
 
 /**

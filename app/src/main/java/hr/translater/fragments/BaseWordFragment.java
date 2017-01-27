@@ -2,6 +2,8 @@ package hr.translater.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +21,8 @@ import hr.translater.R;
 import hr.translater.adapters.WordsAdapter;
 import hr.translater.mvp.models.Word;
 import hr.translater.mvp.models.WordResponse;
+import hr.translater.mvp.presenters.WordsPresenter;
+import hr.translater.mvp.views.BaseView;
 import hr.translater.mvp.views.WordsView;
 import hr.translater.networking.Service;
 
@@ -67,18 +71,16 @@ public class BaseWordFragment extends Fragment implements WordsView {
     }
 
     @Override
+    public void loadDetailFragment() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.flContainer, new TranslateFragment(service),"translationFragment");
+        fragmentTransaction.addToBackStack("translationFragment");
+        fragmentTransaction.commit();
+    }
+
+    @Override
     public void getWordsListSuccess(WordResponse wordResponse) {
-
-        WordsAdapter adapter = new WordsAdapter(activity.getApplicationContext(), wordResponse.getWords(),
-                new WordsAdapter.OnItemClickListener() {
-                    @Override
-                    public void onClick(Word item) {
-                        Toast.makeText(activity.getApplicationContext(), item.getWord(),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        recyclerView.setAdapter(adapter);
     }
 
     @Nullable

@@ -16,7 +16,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="Language from: "
+            android:text="Translate from: "
             android:textSize="20sp" />
 
         <Spinner
@@ -24,13 +24,15 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.18"
+            android:entries="@array/translate_lang_array"
+            android:prompt="@string/lang_to_prompt" />
             android:dropDownWidth="match_parent" />
 
         <TextView
             android:id="@+id/tv_lang_to"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Language to:"
+            android:text="Translate to:"
             android:textSize="20sp"
             />
 
@@ -38,7 +40,9 @@
             android:id="@+id/lang_to_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.16" />
+            android:entries="@array/translate_lang_array"
+            android:prompt="@string/lang_from_prompt"
+            android:layout_weight="0.18" />
 
         <TextView
             android:layout_width="fill_parent"

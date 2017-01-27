@@ -3,7 +3,6 @@ package hr.translater.mvp.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -15,47 +14,47 @@ import javax.annotation.Generated;
 @Generated("org.jsonschema2pojo")
 public class TranslateResponse {
 
-    @SerializedName("message")
+    @SerializedName("langFrom")
     @Expose
-    private String message;
-    @SerializedName("status")
+    private String langFrom;
+    @SerializedName("langTo")
     @Expose
-    private int status;
+    private List<String> langToSet;
 
 
     /**
      *
      * @return
-     * The message
+     * The langFrom
      */
-    public String getMessage() {
-        return message;
+    public String getLangFrom() {
+        return langFrom;
     }
 
     /**
      *
-     * @param message
-     * The message
+     * @param langFrom
+     * The langFrom
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public void setLangFrom(String langFrom) {
+        this.langFrom = langFrom;
     }
 
     /**
      *
      * @return
-     * The status
+     * The langToSet
      */
-    public int getStatus() {
-        return status;
+    public List<String> getLangToSet() {
+        return langToSet;
     }
 
     /**
      *
-     * @param status
-     * The status
+     * @param langToSet
+     * The langToSet
      */
-    public void setStatus(int status) {
-        this.status = status;
+    public void setLangToSet(List<String> langToSet) {
+        this.langToSet = langToSet;
     }
 }

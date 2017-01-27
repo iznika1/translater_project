@@ -10,4 +10,6 @@ public interface BaseView {
     void removeWait();
 
     void onFailure(String appErrorMessage);
+
+    void loadDetailFragment();
 }

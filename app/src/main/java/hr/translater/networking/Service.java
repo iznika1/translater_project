@@ -23,9 +23,9 @@ public class Service {
         this.translatorService = translatorService;
     }
 
-    public Subscription getCroatianWordsList(final GetWordsCallback callback) {
+    public Subscription getWordsListForLang(String lang, final GetWordsCallback callback) {
 
-        return translatorService.getCroatianWordsList()
+        return translatorService.getWordsListForLang(lang)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(new Func1<Throwable, Observable<WordResponse>>() {
@@ -54,18 +54,18 @@ public class Service {
                 });
     }
 
-    public Subscription getSlovenianWordsList(final GetWordsCallback callback) {
+    public Subscription getTranslate(String langFrom, String langTo, String word, final GetTranslateCallback callback) {
 
-        return translatorService.getSlovenianWordsList()
+        return translatorService.getTranslate(langFrom, langTo, word)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext(new Func1<Throwable, Observable<WordResponse>>() {
+                .onErrorResumeNext(new Func1<Throwable, Observable<TranslateResponse>>() {
                     @Override
-                    public Observable<WordResponse> call(Throwable throwable) {
+                    public Observable<TranslateResponse> call(Throwable throwable) {
                         return Observable.error(throwable);
                     }
                 })
-                .subscribe(new Subscriber<WordResponse>() {
+                .subscribe(new Subscriber<TranslateResponse>() {
                     @Override
                     public void onCompleted() {
 
@@ -78,8 +78,8 @@ public class Service {
                     }
 
                     @Override
-                    public void onNext(WordResponse wordsResponse) {
-                        callback.onSuccess(wordsResponse);
+                    public void onNext(TranslateResponse translateResponse) {
+                        callback.onSuccess(translateResponse);
 
                     }
                 });
@@ -120,8 +120,12 @@ public class Service {
         void onSuccess(WordResponse wordsResponse);
     }
 
+    public interface GetTranslateCallback extends ErrorCallback{
+        void onSuccess(TranslateResponse translateResponse);
+    }
+
     public interface PostCallback extends ErrorCallback{
-        void onSuccess(ResponseBody rranslateResponse);
+        void onSuccess(ResponseBody responseBody);
     }
 
     public interface ErrorCallback{

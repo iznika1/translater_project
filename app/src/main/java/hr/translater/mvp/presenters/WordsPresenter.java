@@ -1,9 +1,15 @@
 package hr.translater.mvp.presenters;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+
+import hr.translater.R;
+import hr.translater.fragments.TranslateFragment;
 import hr.translater.mvp.models.TranslateData;
 import hr.translater.mvp.models.TranslateResponse;
 import hr.translater.mvp.views.AddView;
 import hr.translater.mvp.views.BaseView;
+import hr.translater.mvp.views.TranslateView;
 import hr.translater.mvp.views.WordsView;
 import hr.translater.mvp.models.WordResponse;
 import hr.translater.networking.Service;
@@ -28,10 +34,10 @@ public class WordsPresenter {
         this.subscriptions = new CompositeSubscription();
     }
 
-    public void getCroWordsList() {
+    public void getWordsListForLang(String lang) {
         view.showWait();
 
-        Subscription subscription = service.getCroatianWordsList(new Service.GetWordsCallback() {
+        Subscription subscription = service.getWordsListForLang(lang, new Service.GetWordsCallback() {
             @Override
             public void onSuccess(WordResponse wordsResponse) {
                 view.removeWait();
@@ -46,27 +52,6 @@ public class WordsPresenter {
 
         });
 
-
-        subscriptions.add(subscription);
-    }
-
-    public void getSloWordsList() {
-        view.showWait();
-
-        Subscription subscription = service.getSlovenianWordsList(new Service.GetWordsCallback() {
-            @Override
-            public void onSuccess(WordResponse wordsResponse) {
-                view.removeWait();
-                ((WordsView) view).getWordsListSuccess(wordsResponse);
-            }
-
-            @Override
-            public void onError(TranslatorError translatorError) {
-                view.removeWait();
-                view.onFailure(translatorError.getAppErrorMessage());
-            }
-
-        });
 
         subscriptions.add(subscription);
     }
@@ -91,6 +76,28 @@ public class WordsPresenter {
 
         subscriptions.add(subscription);
     }
+
+    public void getTranslate(String langFrom, String langTo, String word) {
+        view.showWait();
+
+        Subscription subscription = service.getTranslate(langFrom, langTo, word, new Service.GetTranslateCallback() {
+            @Override
+            public void onSuccess(TranslateResponse translateResponse) {
+                view.removeWait();
+                ((TranslateView) view).getTranslationSucess(translateResponse);
+            }
+
+            @Override
+            public void onError(TranslatorError translatorError) {
+                view.removeWait();
+                view.onFailure(translatorError.getAppErrorMessage());
+            }
+
+        });
+
+        subscriptions.add(subscription);
+    }
+
     public void onStop() {
         subscriptions.unsubscribe();
     }
