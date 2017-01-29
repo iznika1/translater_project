@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,16 +69,12 @@ public class RegisterFragment extends Fragment implements RegisterView {
     @Override
     public void setRegisterError() {
         Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, "Something wrong! Try again!", Snackbar.LENGTH_SHORT);
+                .make(coordinatorLayout, "Something wrong! Try again!", Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
     @Override
     public void navigateToLogin() {
-        Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, "User register successfull!", Snackbar.LENGTH_LONG);
-        snackbar.show();
-
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

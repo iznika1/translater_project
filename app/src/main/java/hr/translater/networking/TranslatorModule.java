@@ -51,7 +51,7 @@ public class TranslatorModule {
                         Request request = null;
 
                         String url = original.url().encodedPath();
-                        if(url.equals("/login")){
+                        if(url.equals("/login") || url.equals("/register")){
                             request  = original.newBuilder()
                                     .header("Content-Type", "application/json")
                                     .removeHeader("Pragma")
