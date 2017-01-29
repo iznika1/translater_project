@@ -103,11 +103,6 @@ public class TranslateFragment extends Fragment implements TranslateView {
                 Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void loadDetailFragment() {
-
-    }
-
     String readFromMemory(){
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         String word = sharedPref.getString("word","");

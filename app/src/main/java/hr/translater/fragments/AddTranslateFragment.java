@@ -3,13 +3,11 @@ package hr.translater.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -89,11 +87,6 @@ public class AddTranslateFragment extends Fragment implements AddView {
     public void onFailure(String appErrorMessage) {
         Toast.makeText(activity.getApplicationContext(), appErrorMessage,
                 Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void loadDetailFragment() {
-
     }
 
     @Override

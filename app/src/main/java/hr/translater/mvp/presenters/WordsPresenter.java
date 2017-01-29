@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 
 import hr.translater.R;
 import hr.translater.fragments.TranslateFragment;
+import hr.translater.mvp.models.AccessToken;
 import hr.translater.mvp.models.TranslateData;
 import hr.translater.mvp.models.TranslateResponse;
 import hr.translater.mvp.views.AddView;

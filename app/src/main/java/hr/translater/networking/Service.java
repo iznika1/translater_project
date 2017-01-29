@@ -1,5 +1,7 @@
 package hr.translater.networking;
 
+import hr.translater.mvp.models.AccessToken;
+import hr.translater.mvp.models.LoginData;
 import hr.translater.mvp.models.TranslateData;
 import hr.translater.mvp.models.TranslateResponse;
 import hr.translater.mvp.models.WordResponse;
@@ -116,6 +118,68 @@ public class Service {
                 });
     }
 
+    public Subscription register(final LoginData loginData, final PostCallback callback) {
+
+        return translatorService.register(loginData)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(new Func1<Throwable, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(Throwable throwable) {
+                        return Observable.error(throwable);
+                    }
+                })
+                .subscribe(new Subscriber<ResponseBody>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onError(new TranslatorError(e));
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        callback.onSuccess(responseBody);
+
+                    }
+                });
+    }
+
+    public Subscription login(final LoginData loginData, final PostLoginCallback callback) {
+
+        return translatorService.login(loginData)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(new Func1<Throwable, Observable<AccessToken>>() {
+                    @Override
+                    public Observable<AccessToken> call(Throwable throwable) {
+                        return Observable.error(throwable);
+                    }
+                })
+                .subscribe(new Subscriber<AccessToken>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onError(new TranslatorError(e));
+
+                    }
+
+                    @Override
+                    public void onNext(AccessToken accessToken) {
+                        callback.onSuccess(accessToken);
+
+                    }
+                });
+    }
+
     public interface GetWordsCallback extends ErrorCallback{
         void onSuccess(WordResponse wordsResponse);
     }
@@ -126,6 +190,10 @@ public class Service {
 
     public interface PostCallback extends ErrorCallback{
         void onSuccess(ResponseBody responseBody);
+    }
+
+    public interface PostLoginCallback extends ErrorCallback{
+        void onSuccess(AccessToken accessToken);
     }
 
     public interface ErrorCallback{

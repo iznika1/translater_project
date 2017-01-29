@@ -1,5 +1,7 @@
 package hr.translater.networking;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -8,6 +10,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import hr.translater.BuildConfig;
+import hr.translater.mvp.models.LoginData;
+import hr.translater.mvp.models.LoginData_Table;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -44,13 +48,27 @@ public class TranslatorModule {
                     @Override
                     public okhttp3.Response intercept(Chain chain) throws IOException {
                         Request original = chain.request();
+                        Request request = null;
 
-                        // Customize the request
-                        Request request = original.newBuilder()
-                                .header("Content-Type", "application/json")
-                                .removeHeader("Pragma")
-                                .header("Cache-Control", String.format("max-age=%d", BuildConfig.CACHETIME))
-                                .build();
+                        String url = original.url().encodedPath();
+                        if(url.equals("/login")){
+                            request  = original.newBuilder()
+                                    .header("Content-Type", "application/json")
+                                    .removeHeader("Pragma")
+                                    .header("Cache-Control", String.format("max-age=%d", BuildConfig.CACHETIME))
+                                    .build();
+                        }
+                        else{
+                            LoginData loginData = SQLite.select().
+                                    from(LoginData.class).querySingle();
+
+                            request  = original.newBuilder()
+                                    .header("Content-Type", "application/json")
+                                    .header("Authorization",String.format("%s %s", loginData.getAccessToken().getGrantType(),loginData.getAccessToken().getAccessToken()))
+                                    .removeHeader("Pragma")
+                                    .header("Cache-Control", String.format("max-age=%d", BuildConfig.CACHETIME))
+                                    .build();
+                        }
 
                         okhttp3.Response response = chain.proceed(request);
                         response.cacheResponse();

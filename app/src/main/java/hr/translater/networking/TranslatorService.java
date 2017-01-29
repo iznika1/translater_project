@@ -1,5 +1,7 @@
 package hr.translater.networking;
 
+import hr.translater.mvp.models.AccessToken;
+import hr.translater.mvp.models.LoginData;
 import hr.translater.mvp.models.TranslateData;
 import hr.translater.mvp.models.TranslateResponse;
 import hr.translater.mvp.models.WordResponse;
@@ -30,4 +32,10 @@ public interface TranslatorService {
 
     @POST("/translate")
     Observable<ResponseBody> postTranslation(@Body TranslateData translateData);
+
+    @POST("/login")
+    Observable<AccessToken> login(@Body LoginData LoginData);
+
+    @POST("/register")
+    Observable<ResponseBody> register(@Body LoginData LoginData);
 }

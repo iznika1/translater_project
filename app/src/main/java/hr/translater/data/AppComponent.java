@@ -3,7 +3,8 @@ package hr.translater.data;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import hr.translater.MainActivity;
+import hr.translater.activities.LoginActivity;
+import hr.translater.activities.MainActivity;
 import hr.translater.networking.TranslatorModule;
 
 /**
@@ -13,5 +14,6 @@ import hr.translater.networking.TranslatorModule;
 @Singleton
 @Component(modules = {TranslatorModule.class,})
 public interface AppComponent {
-   void inject(MainActivity croWordsActivity);
+   void inject(MainActivity mainActivity);
+   void inject(LoginActivity loginActivity);
 }
