@@ -4,12 +4,12 @@ Simple andorid application for add and list translate word on croatian and slove
 
 Application contains:
 
-  MVP design pattern
+   -MVP design pattern
 
-  Dagger2
+   -Dagger2
 
-  Retrofit 2
+   -Retrofit 2
 
-  Butterknife 8.4
+   -Butterknife 8.4
 
 enjoy :)
